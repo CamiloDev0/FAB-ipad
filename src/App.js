@@ -1,4 +1,4 @@
-import React, { useEffect, useState, use } from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
 import axios from "axios";
