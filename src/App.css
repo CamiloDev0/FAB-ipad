@@ -1,0 +1,22 @@
+.custom-dropdown {
+    background-color: transparent;
+    color: #d9d9d9; /* Color del texto personalizado */
+    border: none; /* Borde personalizado */
+    --bs-btn-active-bg: trasparent;
+
+    
+  }
+  .custom-dropdown:hover {
+    background-color: transparent;
+    background: transparent; /* Cambio de color al pasar el ratón */
+  }
+
+  .custom-dropdown active {
+    background-color: transparent;
+    background: transparent; 
+
+  }
+
+  .dropdown-menu{
+    --bs-dropdown-min-width: 26rem;
+  }
