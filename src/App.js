@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
-import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css'
 
@@ -11,8 +10,6 @@ function App() {
   const [selectedProyect,setSelectedProyect]=useState('');
   const [selectedCompany,setSelectedCompany]=useState('');
   const socket = new WebSocket('ws://192.168.100.30:8080'); // HERE you can change the api Address the port is 8080
-  var sp = new URLSearchParams(window.location.search)
-  const ipadSource = sp.get('source').toLowerCase();
 
   function Back(){
   setCurrentScreen(currentScreen-1)
@@ -54,30 +51,12 @@ function navegacion(){
     };
   }, );
 
-  const setCollaborative = (screen, action, image ) => {
-    let url = "https://mocionws.info/dbController.php?table=dubai&source="+ipadSource;
-    if( action !== 'del' )
-      url += '&image='+image;
-    url += ( action === 'del' ) ? '&method=dropRecord&raw= source="'+ipadSource+'"' : '&method=newRecord&image='+image;
-    axios({ method: "get", url})
-        .then((res) => {
-          console.log("DB REQUEST WS PHP ===> ", res);
-          if( action === 'del' ){
-            url = "https://mocionws.info/dbController.php?method=newRecord&table=dubai&source="+ipadSource+"&image="+image;
-          }
-          axios({ method: "get", url}).then((res) => {
-            console.log("DB REQUEST INSIDE WS ===> ", res);
-            setCurrentScreen(screen);
-          }).catch((err) => console.log("ERROR REQUEST INSIDE WS ====> ", err));
-        }).catch((error) => console.log("ERROR REQUEST WS ====> ", error))
-  }
-
   return (
 
   <div className="full-frame">
   {currentScreen ===0 ?
   <div>
-  <Image alt='' src='/images/frame0.png' onClick={() => setCollaborative(1, 'del', 'wave-'+ipadSource)} style={{position:'absolute',width:'100%',height:'100%'}}/>
+  <Image alt='' src='/images/frame0.png' onClick={() => setCurrentScreen(1)} style={{position:'absolute',width:'100%',height:'100%'}}/>
   <video autoPlay muted loop style={{width:'80%',height:'57%',left:'9.9%',top:'36.2%',position:'absolute',objectFit: 'fill' }}>
   <source src="/video/ipad.mp4" type="video/mp4"   />
   </video>
