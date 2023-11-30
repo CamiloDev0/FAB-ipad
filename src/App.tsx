@@ -67,22 +67,22 @@ function App() {
     let position = (pos)?pos:currentScreen-1;
     console.log("POSITION ===> " + position);
     let drop:any;
-    let save:any;
+    //let save:any;
     switch(position){
       case 1:
         drop = await removeSource('');
         if( drop )
-          save = await saveImage("wave-"+ipadSource, "wave");
+          await saveImage("wave-"+ipadSource, "wave");
         break;
       case 2:
-          drop = await removeSource('');
-          if( drop )
-            save = await saveImage("wave-"+ipadSource, "wave");
-          break;
+        drop = await removeSource('');
+        if( drop )
+          await saveImage("wave-"+ipadSource, "wave");
+        break;
       case 7:
         drop = await removeSource('');
         if( drop )
-          save = await saveImage("wave-"+ipadSource, "wave");
+          await saveImage("wave-"+ipadSource, "wave");
         break;
       case 3:
         drop = await removeSource("type = 'box'");
