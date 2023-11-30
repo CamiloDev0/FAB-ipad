@@ -114,7 +114,7 @@ function App() {
             style={{width:'80%',height:'57%',left:'9.9%',top:'36.2%',position:'absolute',objectFit: 'fill' }}
             playsInline 
             loop
-            muted={false}>
+            muted={true}>
           </video>
         </div>
       :null}
