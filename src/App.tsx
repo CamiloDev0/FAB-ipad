@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'react-bootstrap/Image';
 import Dropdown from 'react-bootstrap/Dropdown';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,6 +10,12 @@ function App() {
   const [selectedCountry,setSelectedCountry]=useState('');
   const [selectedProyect,setSelectedProyect]=useState('');
   const [selectedCompany,setSelectedCompany]=useState('');
+  const [lastInteraction, setLastInteraction] = useState<number>(Date.now());
+
+  const handleInteraction = () => {
+    setLastInteraction(Date.now());
+  };
+  
   const sp = new URLSearchParams(window.location.search);
   const ipadSource = sp.get('source')?.toLowerCase() || '';
 
@@ -102,6 +108,38 @@ function App() {
         setCurrentScreen(screen);
     }
   }
+
+  useEffect(() => {
+    const checkInactivity = async () => {
+      const currentTime = Date.now();
+      const inactivityDuration = currentTime - lastInteraction;
+
+      if (inactivityDuration >= 1 * 60 * 1000) {
+        // Recargar la aplicación o ejecutar cualquier lógica necesaria
+        let drop = await removeSource('');
+        if(drop)
+          window.location.reload();
+      }
+    };
+
+    // Comenzar la comprobación de inactividad
+    const intervalId = setInterval(checkInactivity, 1000);
+
+    // Limpiar el intervalo cuando el componente se desmonte
+    return () => clearInterval(intervalId);
+  }, [lastInteraction]);
+
+  // Agregar oyentes de eventos para rastrear la interacción del usuario
+  useEffect(() => {
+    window.addEventListener('mousemove', handleInteraction);
+    window.addEventListener('keydown', handleInteraction);
+
+    // Limpiar los oyentes de eventos cuando el componente se desmonte
+    return () => {
+      window.removeEventListener('mousemove', handleInteraction);
+      window.removeEventListener('keydown', handleInteraction);
+    };
+  }, []);
 
   return (
     <div className="full-frame">
