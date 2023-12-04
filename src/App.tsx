@@ -287,8 +287,8 @@ function App() {
 											onClick={() => [
 												handleCountry(
 													'UNITED ARAB EMIRATES',
-													'line-KSA-' + ipadSource,
-													'point-ksa'
+													'line-UAE-' + ipadSource,
+													'point-uae' /*ESTO FUE LO QUE CAMBIE*/
 												),
 											]}
 										/>
